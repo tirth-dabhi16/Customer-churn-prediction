@@ -10,7 +10,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 MODEL_PATH = BASE_DIR/"customer_churn_model.pkl"
 
 model = joblib.load(MODEL_PATH)
@@ -73,5 +73,4 @@ def predict_churn(data : CustomerData):
             status_code=500,
             detail=str(e)
         )
-
 
