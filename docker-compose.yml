@@ -1,0 +1,7 @@
+services:
+  diabetes-api:
+    image: tirthdabhi/customer-churn-api:latest
+    container_name: customer-churn-api
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
