@@ -1,5 +1,5 @@
 services:
-  diabetes-api:
+  customer-churn-api:
     image: tirthdabhi/customer-churn-api:latest
     container_name: customer-churn-api
     ports:
