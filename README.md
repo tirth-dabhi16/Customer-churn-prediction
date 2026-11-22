@@ -199,7 +199,7 @@ docker pull tirthdabhi/customer-churn-api
 ### Run the Container
 
 ```bash
-docker run -d -p 8000:8000 --name credit-risk-api tirthdabhi/credit-risk-ann-api
+docker run -d -p 8000:8000 --name customer-churn-api tirthdabhi/customer-churn-api
 ```
 
 Access the API:
