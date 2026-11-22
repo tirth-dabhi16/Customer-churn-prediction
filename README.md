@@ -188,18 +188,18 @@ http://127.0.0.1:8000/docs
 
 Use the interactive Swagger UI to test the customer churn prediction API.
 
-## 🐳 Run with Docker
+## 🐳 Run using Docker Hub
 
-### Build Docker Image
+### Pull the image
 
 ```bash
-docker build -t customer-churn-api .
+docker pull tirthdabhi/customer-churn-api
 ```
 
-### Run Docker Container
+### Run the Container
 
 ```bash
-docker run -d -p 8000:8000 --name customer-churn-api customer-churn-api
+docker run -d -p 8000:8000 --name credit-risk-api tirthdabhi/credit-risk-ann-api
 ```
 
 Access the API:
