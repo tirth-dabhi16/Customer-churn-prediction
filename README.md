@@ -1,13 +1,14 @@
 # 📊 Customer Churn Prediction System
 
 <p align="center">
-  <b>An End-to-End Machine Learning Project with FastAPI & Docker</b>
+  <b>An End-to-End Machine Learning Project with Streamlit,FastAPI & Docker</b>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" />
   <img src="https://img.shields.io/badge/XGBoost-EC6B23?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" />
   <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" />
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
 </p>
@@ -16,7 +17,9 @@
 
 Customer churn occurs when customers stop using a company's products or services. Predicting customer churn helps businesses identify customers who are likely to leave and take proactive steps to improve customer retention.
 
-This project develops an end-to-end Machine Learning solution using XGBoost to predict customer churn. It covers the complete ML lifecycle, from data preprocessing and exploratory data analysis to model evaluation and deployment using FastAPI and Docker.
+This project develops an end-to-end Machine Learning solution using XGBoost to predict customer churn. It covers data preprocessing, exploratory data analysis, feature engineering, model evaluation, and deployment using FastAPI and Docker.
+
+Additionally, a Streamlit application provides an interactive dashboard, individual customer predictions, and model information.
 
 ## 🎯 Project Objectives
 
@@ -40,7 +43,7 @@ Exploratory Data Analysis (EDA)
       |
 Feature Engineering
       |
-Handling Class Imbalance (SMOTE)
+Handling Class Imbalance
       |
 Model Training & Comparison
       |
@@ -50,16 +53,21 @@ Model Evaluation
       |
 Model Serialization (Joblib)
       |
-FastAPI Application
-      |
-Docker Containerization
-      |
-REST API
+      +-----------------------+
+      |                       |
+  Streamlit App           FastAPI App
+  Interactive UI           REST API
+                              |
+                           Docker
+                              |
+                        Docker Compose
+                              |
+                       API Deployment
 ```
 
 ## 📈 Model Performance
 
-**Final Model:XGBoost Classifier**
+**Final Model: XGBoost Classifier**
 
 The final model was evaluated on 10,000 test samples.
 
@@ -91,34 +99,41 @@ The final model was evaluated on 10,000 test samples.
 - Achieved a **92.95% ROC-AUC score**, demonstrating strong classification performance.
 - Maintained a good balance between precision and recall for churn prediction.
 
+## 🖥️ Streamlit Application
+
+### 📊 Customer Churn Dashboard
+
+<p align="center">
+  <img src="Images/dashboard.png" width="100%" alt="Customer Churn Dashboard"/>
+</p>
+
+### 🔮 Customer Churn Prediction
+
+<p align="center">
+  <img src="Images/prediction.png" width="100%" alt="Customer Churn Prediction"/>
+</p>
+
+### 📈 Model Information
+
+<p align="center">
+  <img src="Images/model_info.png" width="100%" alt="Model Information and Feature Importance"/>
+</p>
+
 ## 🔍 Key Findings
 
-- Lifetime Value was the most important feature (15.16%) for predicting customer churn.
-- Customer Service Calls was the second most important feature (13.90%).
-- Discount Usage Rate (11.06%) and Cart Abandonment Rate (8.06%) were also important predictors.
+- Customer Service Calls was the most important feature for predicting customer churn.
+- Lifetime Value was the second most important feature.
+- Discount Usage Rate and Cart Abandonment Rate were also important predictors.
 - Customer purchasing behavior and engagement-related features contributed to churn prediction.
 
 ## 🚀 Model Deployment
 
-The trained machine learning pipeline is serialized using Joblib and integrated into a FastAPI application.
+The trained machine learning pipeline is serialized using Joblib and integrated into two applications:
 
-The application exposes a REST API that accepts customer information and returns churn predictions.
+- **Streamlit:** Provides an interactive dashboard for customer churn, individual customer predictions, and model information.
+- **FastAPI:** Exposes the trained model through a REST API that accepts customer information and returns churn predictions.
 
-### Deployment Architecture
-
-```text
-Trained XGBoost Pipeline
-          |
-        Joblib
-          |
-     FastAPI App
-          |
-       Docker
-          |
-    Docker Compose
-          |
-   Churn Prediction API
-```
+The FastAPI application is containerized using Docker and can be managed using Docker Compose.
 
 ## 🛠️ Technologies Used
 
@@ -126,10 +141,11 @@ Trained XGBoost Pipeline
 |---|---|
 | Programming | Python |
 | Data Analysis | Pandas, NumPy, Matplotlib, Seaborn |
-| Machine Learning | Scikit-learn, XGBoost |
+| Machine Learning | Scikit-learn, XGBoost, SMOTE |
+| Dashboard | Streamlit |
 | API Development | FastAPI |
 | Deployment | Docker, Docker Compose |
-| Tools | Jupyter Notebook, VS Code |
+| Tools | Jupyter Notebook, VS Code, Git, GitHub |
 
 ## 📁 Project Structure
 
@@ -143,8 +159,12 @@ Customer-churn-prediction/
 │
 ├── notebooks/
 │
-├── customer_churn_model.pkl
+├── Images/
+│   ├── dashboard.png
+│   ├── model_info.png
+│   └── prediction.png
 │
+├── customer_churn_model.pkl
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
@@ -188,18 +208,18 @@ http://127.0.0.1:8000/docs
 
 Use the interactive Swagger UI to test the customer churn prediction API.
 
-## 🐳 Run using Docker Hub
+## 🐳 Run with Docker
 
-### Pull the image
+### Build Docker Image
 
 ```bash
-docker pull tirthdabhi/customer-churn-api
+docker build -t customer-churn-api .
 ```
 
-### Run the Container
+### Run Docker Container
 
 ```bash
-docker run -d -p 8000:8000 --name customer-churn-api tirthdabhi/customer-churn-api
+docker run -d -p 8000:8000 --name customer-churn-api customer-churn-api
 ```
 
 Access the API:
@@ -231,20 +251,13 @@ docker compose down
 - Evaluating models using multiple classification metrics.
 - Deploying ML models as REST APIs using FastAPI.
 - Containerizing machine learning applications using Docker.
-- Managing application services using Docker Compose.
-
-## 🔮 Future Improvements
-
-- Deploy the application to a cloud platform.
-- Implement CI/CD pipelines.
-- Add model monitoring and performance tracking.
-- Improve API testing and validation.
+- Building interactive Machine Learning dashboards using Streamlit.
 
 ## 🙏 Acknowledgement
 
-This project helped me gain practical experience in Data Science and Machine Learning. I learned about data preprocessing, EDA, feature engineering, handling imbalanced datasets, model training, and evaluation.
+This project helped me apply my Machine Learning knowledge to an end-to-end project, from data preprocessing and model development to building an interactive dashboard and deploying a REST API.
 
-I also gained hands-on experience in deploying Machine Learning models using FastAPI, Docker, and Docker Compose.
+Through this project, I gained hands-on experience with XGBoost, Streamlit, FastAPI, Docker, and Docker Compose.
 
 Thank you for visiting this repository! ⭐
 
